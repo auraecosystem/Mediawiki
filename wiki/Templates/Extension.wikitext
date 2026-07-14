@@ -111,7 +111,6 @@
 |llm-index            =
 |embedding-model      =
 |vector-schema        =
-
 <!-- Ecosystem -->
 |extensions           =
 |skins                =
