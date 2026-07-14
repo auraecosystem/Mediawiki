@@ -1,0 +1,52 @@
+{{! resources/templates/Web4Documentation.mustache }}
+<div class="mw-web4-docs">
+    <header class="mw-web4-header">
+        <h1>{{title}}</h1>
+        <p>{{description}}</p>
+        <div class="mw-web4-meta">
+            <span><strong>Version:</strong> {{version}}</span>
+            <span><strong>Author:</strong> {{author}}</span>
+            <span><strong>Status:</strong> {{status}}</span>
+        </div>
+    </header>
+    <section class="mw-web4-projects">
+        <h2>Projects</h2>
+        <ul>
+        {{#projects}}
+            <li>
+                <a href="{{url}}">{{name}}</a>
+                {{#summary}}
+                <p>{{summary}}</p>
+                {{/summary}}
+            </li>
+        {{/projects}}
+        </ul>
+    </section>
+    <section class="mw-web4-documentation">
+        <h2>Documentation</h2>
+        <ul>
+        {{#documentation}}
+            <li>
+                <a href="{{url}}">
+                    {{title}}
+                </a>
+            </li>
+        {{/documentation}}
+        </ul>
+    </section>
+    <section class="mw-web4-features">
+        <h2>Features</h2>
+        <ul>
+        {{#features}}
+            <li>{{.}}</li>
+        {{/features}}
+        </ul>
+    </section>
+    <footer class="mw-web4-footer">
+        {{#searchEnabled}}
+        <p>
+            This documentation is indexed by Wikixedia Search.
+        </p>
+        {{/searchEnabled}}
+    </footer>
+</div>
