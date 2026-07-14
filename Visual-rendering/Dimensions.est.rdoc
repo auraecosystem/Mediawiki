@@ -1,0 +1,127 @@
+ `FFXIVClientStructs.Tools.CLI` project provides automated analysis directly from the exe:
+
+```.xlsim
+--rtti              Dump full RTTI database (4,358 classes with inheritance)
+--imports           Dump import table (21 DLLs, ~400 functions)
+--vtable <class>    Dump complete vtable for any RTTI class
+--vtfuncs <class>   Analyze vtable functions: size, params, stub/pure detection
+--analyze <class>   Extract struct layout from constructor: field offsets, sizes, embedded sub-objects, base ctor chain
+--hierarchy <class> Show full inheritance tree (base classes + derived classes)
+--search <pattern>  Search classes by name pattern
+--strings <class>   Extract string references from class constructor and vtable functions
+--findstr <string>  Find all cross-references to a string literal in .text
+--all               Run all dumps (rtti + imports)
+--exe <path>        Override path to ffxivgame.exe
+```
+
+Examples:
+```q
+dotnet run -- --analyze CharaActor
+
+// Application::Scene::Actor::Chara::CharaActor
+// VTable: 0x00FC0D34 (188 vfuncs)
+// Ctor:   0x0065F180
+// Size:   0x2BB0 (11184 bytes)
+//
+// === Base Class Constructors ===
+//   RaptureActor (ctor=0x..., vt=0x00FEA50C, 12 fields)
+//
+// === Fields (from constructor init) === [44 total]
+// +0x0154 [float ] = xmm0
+// +0x0158 [float ] = xmm0
+// +0x1170 [dword ] = 0x000000ED
+// +0x1178 [dword ] = 0x000000C9
+// ...
+// === Embedded Sub-Objects === [40 total]
+// +0x2858 CharaActionController (vt=0x0103E468)
+// +0x2B60 CharaCutVisualCtrl (vt=0x0104447C)
+```
+
+```bash
+dotnet run -- --hierarchy CharaActor
+
+// Inheritance hierarchy for: Application::Scene::Actor::Chara::CharaActor
+//
+// Direct + transitive bases:
+//   <- Application::Scene::Actor::CDevActor
+//   <- Application::Scene::RaptureActor (vt=0x00FEA50C)
+//   <- SQEX::CDev::Engine::Fw::SceneObject::Actor (vt=0x0109CA94)
+//   <- SQEX::CDev::Engine::Common::ISceneObject::IActor
+//   <- SQEX::CDev::Engine::Common::Misc::NonCopyable
+```
+
+```vim
+dotnet run -- --vtfuncs CharaActor
+
+// Summary: 188 total, 0 pure virtual, 30 stubs
+// vt[  0] 0x00669E20 (6B) thiscall(this) [STUB]
+// vt[  1] 0x006207D0 (135B) thiscall(this)
+// vt[ 23] 0x00661F00 (140B) thiscall(this, arg1, arg2)
+// ...
+```
+
+## Building
+
+Requires .NET 8.0 SDK.
+
+```ps1
+dotnet build --configuration Release
+```
+
+## Project Structure
+
+```srv
+FFXIVClientStructs/
+  Attributes/         Custom attributes for marking RE data
+  Interop/            SignatureScanner, Memory, Pointer<T>, GameInfo
+  STD/                MSVC x86 std::string, std::vector, std::map
+  SQEX/CDev/Engine/   Crystal Tools engine (1,002 structs)
+    Fw/               Framework, SceneObject Actor (28)
+    Common/           ISceneObject, Task, Timer (36)
+    Memory/           Allocators, Alternative heap families (42)
+    Math/             DelegateHolderBase, TDynamicArray (2)
+    Media/            Media subsystem (5)
+    Dw/               Rendering: Renderer, Animation, SceneGraph, RenderInterface, ResourceLoader (183)
+    Lay/              Layout: Stella engine + Default (150)
+    Cut/              Cutscene: Plugins, Scheduler, Listeners (175)
+    Vfx/              VFX: Qix, VfxResourceFormat/Model, Common, Renderer, RenderInterface (146)
+    CDevVfx/          VFX bridge layer (37)
+    Sd/               Sound: Driver/XA2, Layout, Whiz (102)
+    Phieg/            Physics: ClothDynamics, RigidDynamics, Collision, Controller, IK (96)
+  FFXIV/Application/  Game-layer structs (1,085 structs)
+    Scene/            Actor (53), Cut (298 clip types), SceneSystems (70)
+    Script/Lua/       Lua scripting: Client (179), InterfaceToSqwt (6), Common (4), LuaTypes (28)
+    Main/             UI: Element (175), SqwtInterface (93), Menu (117), MainTypes (9)
+    Network/          ZoneProto, LobbyProto, ChatProto channels (43)
+    Misc/             Config, support modules (19)
+    Game/             GameEnums
+  FFXIV/Component/    Framework modules (147 structs)
+    Lua/              GameEngine runtime (65)
+    Text/             Localization (17)
+    Excel/            Spreadsheet data (12)
+    Install/          Installer (10)
+    Patch/            ZiPatch (9)
+    Resource/         Resource loading (7)
+    Sound/, Font/, Xml/, Completion/, Log/ (21 combined)
+  SQEX/SqexSDK.cs     Platform SDK: Input, File, Crypt, Http, Upnp, Thread, Data (51)
+  Sqex/Socket/        Transport layer (SocketBase, RUDP2 segments, Poller) (14)
+  Sqwt/               UI framework (685 classes)
+    SqwtCore.cs        Core types, templates, triggers, dependency properties
+    Visual.cs          Visual tree, UIElement, FrameworkElement, Window, Media types
+    Controls/          Controls (35+) and Primitives (15+)
+    Input/             Input devices, gestures, commands, bindings, visual overlays
+    Media/             Animation system (timelines, storyboards)
+    Markup/            XAML parsing, control factories, markup objects (80+)
+    Data/              Data binding, value converters
+    DocumentModel/     Text document model for TextBox/LogControl
+    Threading/         Mutex, Thread, Timer
+    Xml/               XML DOM wrappers
+    Utility/           Editor and widget helpers
+  Tools/              RttiDumper, ImportTableDumper, StructAnalyzer, VtableAnalyzer, StringExtractor
+
+FFXIVClientStructs.Tools.CLI/
+  Console tool for automated binary analysis
+
+ffxiv_1.0_rtti.txt      Full RTTI database (pre-generated)
+ffxiv_1.0_imports.txt   Import table dump (pre-generated)
+```
