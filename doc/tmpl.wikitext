@@ -1,0 +1,81 @@
+<includeonly>{{sandbox other||{{testcases other||
+<!-- Categories below this line; interwikis at Wikidata -->
+
+[[Category:Templates]]
+[[Category:Documentation]]
+[[Category:Lua-based templates]]
+[[Category:Formatting templates]]
+
+}}}}</includeonly><noinclude>
+
+{{documentation}}
+
+== Purpose ==
+This template provides the production version of the template.
+
+== Usage ==
+<syntaxhighlight lang="wikitext">
+{{TemplateName
+ | parameter1 =
+ | parameter2 =
+}}
+</syntaxhighlight>
+
+== Parameters ==
+{| class="wikitable"
+! Parameter
+! Required
+! Description
+|-
+| parameter1
+| Yes
+| Primary parameter.
+|-
+| parameter2
+| No
+| Optional parameter.
+|}
+
+== Examples ==
+=== Basic ===
+<syntaxhighlight lang="wikitext">
+{{TemplateName|parameter1=value}}
+</syntaxhighlight>
+
+=== Advanced ===
+<syntaxhighlight lang="wikitext">
+{{TemplateName
+ | parameter1 = value
+ | parameter2 = example
+}}
+</syntaxhighlight>
+
+== TemplateData ==
+<templatedata>
+{
+    "description": "Description of the template.",
+    "params": {
+        "parameter1": {
+            "label": "Parameter 1",
+            "description": "Primary parameter.",
+            "required": true,
+            "type": "string"
+        },
+        "parameter2": {
+            "label": "Parameter 2",
+            "description": "Optional parameter.",
+            "required": false,
+            "type": "string"
+        }
+    }
+}
+</templatedata>
+
+== See also ==
+* [[Help:Templates]]
+* [[Help:TemplateData]]
+* [[Help:ParserFunctions]]
+* [[Help:Lua]]
+* [[Module:Documentation]]
+
+</noinclude>
