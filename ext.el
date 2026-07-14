@@ -1,4 +1,4 @@
-?php
+ ?php
 // router.php
 $path = pathinfo($_SERVER["SCRIPT_FILENAME"]);
 if ($path["extension"] == "el") {
