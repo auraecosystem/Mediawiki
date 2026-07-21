@@ -19,7 +19,7 @@
 | {{{license|Apache-2.0}}}
 |-
 ! Author
-| {{{author|Aura Ecosystem}}}
+| {{{author|seriki walter yakub}}}
 |-
 ! Homepage
 | {{{homepage|—}}}
@@ -34,7 +34,7 @@
 | {{{api|—}}}
 |-
 ! Language
-| {{{language|Multiple}}}
+| {{{language|Multiple.}}}
 |-
 ! Platform
 | {{{platform|Cross-platform}}}
@@ -57,7 +57,7 @@
 * API-first
 * Extension Support
 * Cross-platform
-* MediaWiki Integration
+* wikixedia Integration
 }}}
 
 == Architecture ==
@@ -90,7 +90,9 @@ HTML    JSON     Database
 
 == Usage ==
 
-{{{usage|No usage instructions available.}}}
+{{{usage| No usage instructions available.
+        ▼
+}}}
 
 == Related Pages ==
 
@@ -100,6 +102,6 @@ HTML    JSON     Database
 * [[API Reference]]
 * [[Extensions]]
 
-[[Category:{{{category|Web4}}}]]
+[[Category:| {{{category|Web4}}}]]
 
 </includeonly>
