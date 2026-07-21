@@ -1,7 +1,4 @@
-</noincludeonly>
-{{Documentation}}
-</noinclude></includeonly>
-
+<includeonly>
 {| class="wikitable" style="width:100%;"
 |-
 ! colspan="2" style="font-size:160%; background:#2d5fa4; color:white;" | {{{name|Web4 Project}}}
@@ -19,7 +16,7 @@
 | {{{license|Apache-2.0}}}
 |-
 ! Author
-| {{{author|seriki walter yakub}}}
+| {{{author|Seriki Walter Yakub}}}
 |-
 ! Homepage
 | {{{homepage|—}}}
@@ -34,7 +31,7 @@
 | {{{api|—}}}
 |-
 ! Language
-| {{{language|Multiple.}}}
+| {{{language|Multiple}}}
 |-
 ! Platform
 | {{{platform|Cross-platform}}}
@@ -57,7 +54,7 @@
 * API-first
 * Extension Support
 * Cross-platform
-* wikixedia Integration
+* Wikixedia Integration
 }}}
 
 == Architecture ==
@@ -71,12 +68,12 @@
            ▼
       Wikixedia Engine
            │
- ┌─────────┼─────────┐
- ▼         ▼         ▼
-Parser   API     Search
- │         │         │
- ▼         ▼         ▼
-HTML    JSON     Database 
+      ┌────┼────┐
+      ▼    ▼    ▼
+   Parser API Search
+      │    │    │
+      ▼    ▼    ▼
+     HTML JSON Database
 </pre>
 
 == Installation ==
@@ -84,15 +81,13 @@ HTML    JSON     Database
 {{{installation|
 # Download the extension.
 # Place it in the extensions directory.
-# Add the LocalSettings.php configuration.
+# Add the required configuration to LocalSettings.php.
 # Run update.php.
 }}}
 
 == Usage ==
 
-{{{usage| No usage instructions available.
-        ▼
-}}}
+{{{usage|No usage instructions available.}}}
 
 == Related Pages ==
 
@@ -102,6 +97,9 @@ HTML    JSON     Database
 * [[API Reference]]
 * [[Extensions]]
 
-[[Category:| {{{category|Web4}}}]]
-
+[[Category:{{{category|Web4}}}]]
 </includeonly>
+
+<noinclude>
+{{Documentation}}
+</noinclude>
