@@ -59,7 +59,6 @@
 * Cross-platform
 * MediaWiki Integration
 }}}
-
 == Architecture ==
 
 <pre>
